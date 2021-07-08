@@ -1,21 +1,17 @@
 package org.perscholas.concurrency.AlanGervin;
 
 public class NumberCounter implements Runnable {
-	private Block block;
+
 	public static int a = 0;
 	
-	public NumberCounter(Block block) {
-		this.block = block;
-	}
-
 	@Override
 	public void run() {		
-		synchronized (block) {
+		synchronized (this) {
 			for (int i = 0; i < 100000; i++) {
 				//System.out.println(i);
-				increment();
+				NumberCounter.increment();
 			}
-			block.count();
+			notify();
 		}
 	}
 	
@@ -26,8 +22,4 @@ public class NumberCounter implements Runnable {
 	public static int getInt() {
 		return a;
 	}
-
-	
-
-	
 }
